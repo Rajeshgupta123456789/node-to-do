@@ -1,8 +1,8 @@
 stages:
-    -build
-    -test
-    -push_to_dockerhub
-    -deploy
+    - build
+    - test
+    - push_to_dockerhub
+    - deploy
 
 build_job:
     stage : build
