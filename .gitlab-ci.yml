@@ -28,7 +28,7 @@ push_to_dockerhub_job:
         - dev
 
 deploy_job:
-    stage : test
+    stage : deploy
     script:
         - docker compose up
     tags:
