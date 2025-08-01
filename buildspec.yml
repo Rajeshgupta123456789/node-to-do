@@ -7,7 +7,6 @@ phases:
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 208496905340.dkr.ecr.us-east-1.amazonaws.com
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - REPOSITORY_URI=208496905340.dkr.ecr.us-east-1.amazonaws.com/nodesapp
-      - echo Image Tag = $IMAGE_TAG
 
   build:
     commands:
@@ -17,10 +16,10 @@ phases:
 
   post_build:
     commands:
-      - echo Pushing both commit and latest tags...
+      - echo Pushing Docker images...
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:latest
-      - echo Writing imagedefinitions.json for ECS with latest tag...
+      - echo Writing image definitions file for ECS...
       - printf '[{"name":"DeployToEcsFargateContainerName","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
 
 artifacts:
